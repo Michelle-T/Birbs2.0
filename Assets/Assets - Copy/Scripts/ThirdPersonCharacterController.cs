@@ -10,9 +10,21 @@ public class ThirdPersonCharacterController : MonoBehaviour
 	public GameObject pausePanel;
 	bool pause = false;
 	bool scoring = true;
-	//public Rigidbody rb;
+    //public Rigidbody rb;
 
-	void Start() {
+    public float RotationSpeed = 1;
+    public Transform Target, Player; //problem?
+    float mouseX, mouseY;
+
+    //Dealing with Camera Obstructions
+    public Transform Obstruction;
+    float zoomSpeed = 2f;
+
+
+    public GameObject FPC;
+    public GameObject TPC;
+
+    void Start() {
 		pausePanel.SetActive(false);
 		//rb = GetComponent<Rigidbody>();
 	}
@@ -60,7 +72,35 @@ public class ThirdPersonCharacterController : MonoBehaviour
 	
 	}
 
-	IEnumerator Example()
+    private void LateUpdate()
+    {
+        CamControl();
+    }
+
+    void CamControl()
+    {
+        mouseX += Input.GetAxis("Mouse X") * RotationSpeed;
+        mouseY -= Input.GetAxis("Mouse Y") * RotationSpeed;
+        mouseY = Mathf.Clamp(mouseY, -35, 85);
+        if (FPC.activeSelf)
+        {
+            mouseY = Mathf.Clamp(mouseY, -90, 60);
+        }
+
+        transform.LookAt(Target);
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        }
+        else
+        {
+            Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+            Player.rotation = Quaternion.Euler(0, mouseX, 0);
+        }
+    }
+
+    IEnumerator Example()
 	{
 		JumpCount = 1;
 		yield return new WaitForSeconds(2);

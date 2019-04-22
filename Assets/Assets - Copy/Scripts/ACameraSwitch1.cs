@@ -2,26 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ACameraSwitch : MonoBehaviour
+public class ACameraSwitch1 : MonoBehaviour
 {
     [SerializeField]
-    Camera ThirdCam;
+    public GameObject ThirdCam;
     [SerializeField]
-    Camera FirstCam;
-
-    AudioListener ThirdCamAudioLis;
-    AudioListener FirstCamAudioLis;
+    public GameObject FirstCam;
     //public int CamMode;
     private bool switchCam = false;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        ThirdCam.GetComponent<Camera>().enabled = true;
-        FirstCam.GetComponent<Camera>().enabled = false;
-
-        ThirdCamAudioLis = ThirdCam.GetComponent<AudioListener>();
-        FirstCamAudioLis = FirstCam.GetComponent<AudioListener>();
+        ThirdCam.SetActive(true);
+        FirstCam.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,17 +39,13 @@ public class ACameraSwitch : MonoBehaviour
 
         if (switchCam == true)
         {
-            FirstCam.GetComponent<Camera>().enabled = false;
-            FirstCamAudioLis.enabled = true;
-            ThirdCam.GetComponent<Camera>().enabled = true;
-            ThirdCamAudioLis.enabled = true;
+            FirstCam.SetActive(false);
+            ThirdCam.SetActive(true);
         }
         else
         {
-            FirstCam.GetComponent<Camera>().enabled = true;
-            FirstCamAudioLis.enabled = true;
-            ThirdCam.GetComponent<Camera>().enabled = false;
-            ThirdCamAudioLis.enabled = false;
+            FirstCam.SetActive(true);
+            ThirdCam.SetActive(false);
         }
     }
 
