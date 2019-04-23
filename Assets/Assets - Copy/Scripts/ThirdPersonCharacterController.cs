@@ -10,9 +10,12 @@ public class ThirdPersonCharacterController : MonoBehaviour
 	public GameObject pausePanel;
 	bool pause = false;
 	bool scoring = true;
-	//public Rigidbody rb;
+    //public Rigidbody rb;
 
-	void Start() {
+    [SerializeField]
+    Camera FirstCam;
+
+    void Start() {
 		pausePanel.SetActive(false);
 		//rb = GetComponent<Rigidbody>();
 	}
@@ -74,11 +77,11 @@ public class ThirdPersonCharacterController : MonoBehaviour
 		Vector3 playerMovement = new Vector3 (hor, 0f, ver) * Speed * Time.deltaTime;
 		transform.Translate (playerMovement, Space.Self);
 
-		if (Input.GetKeyUp(KeyCode.Mouse1))
+		if (FirstCam.GetComponent<Camera>().enabled == false)
 		{
 			Speed = 8;
 		}
-		if (Input.GetKey(KeyCode.Mouse1))
+		else
 			{
 				Speed = 2;
 			}

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class ThirdPersonCameraController : MonoBehaviour
 {
-	public float RotationSpeed = 1;
+    [SerializeField]
+    Camera ThirdCam;
+    [SerializeField]
+    Camera FirstCam;
+
+    public float RotationSpeed = 1;
 	public Transform Target, Player; //problem?
 	float mouseX, mouseY;
 
@@ -13,8 +18,8 @@ public class ThirdPersonCameraController : MonoBehaviour
 	float zoomSpeed = 2f;
 
 
-    public GameObject FPC;
-    public GameObject TPC;
+    //public GameObject FPC;
+    //public GameObject TPC;
 
     void Start()
     {
@@ -35,10 +40,10 @@ public class ThirdPersonCameraController : MonoBehaviour
 	{
         mouseX += Input.GetAxis("Mouse X") * RotationSpeed;
         mouseY -= Input.GetAxis("Mouse Y") * RotationSpeed;
-        mouseY = Mathf.Clamp(mouseY, -35, 85);
-        if (FPC.activeSelf)
+        //mouseY = Mathf.Clamp(mouseY, -35, 85);
+        if (FirstCam.GetComponent<Camera>().enabled == false)
         {
-            mouseY = Mathf.Clamp(mouseY, -90, 60);
+            //mouseY = Mathf.Clamp(mouseY, -90, 60);
         }
 
 		transform.LookAt (Target);
